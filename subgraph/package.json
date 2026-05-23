@@ -1,0 +1,16 @@
+{
+  "name": "cockroach-connect-subgraph",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy:studio": "graph deploy --studio cockroach-connect",
+    "create:local": "graph create --node http://localhost:8020/ cockroach-connect",
+    "deploy:local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 cockroach-connect"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.66.0",
+    "@graphprotocol/graph-ts": "^0.35.0"
+  }
+}

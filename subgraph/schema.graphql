@@ -1,0 +1,25 @@
+type Profile @entity {
+  id: ID!                   # wallet address
+  username: String!
+  bio: String!
+  createdAt: BigInt!
+  posts: [Post!]! @derivedFrom(field: "author")
+  likes: [Like!]! @derivedFrom(field: "user")
+  postCount: Int!
+}
+
+type Post @entity {
+  id: ID!                   # postId as string
+  author: Profile!
+  content: String!
+  timestamp: BigInt!
+  likeCount: Int!
+  likes: [Like!]! @derivedFrom(field: "post")
+}
+
+type Like @entity {
+  id: ID!                   # postId-userAddress
+  post: Post!
+  user: Profile!
+  timestamp: BigInt!
+}

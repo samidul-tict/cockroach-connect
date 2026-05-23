@@ -1,0 +1,51 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: SocialProfile
+    network: base-sepolia
+    source:
+      address: "0x0000000000000000000000000000000000000000"  # replace after deploy
+      abi: SocialProfile
+      startBlock: 0  # replace with deployment block
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Profile
+      abis:
+        - name: SocialProfile
+          file: ../contracts/artifacts/contracts/SocialProfile.sol/SocialProfile.json
+      eventHandlers:
+        - event: ProfileCreated(indexed address,string,uint256)
+          handler: handleProfileCreated
+        - event: ProfileUpdated(indexed address,string,uint256)
+          handler: handleProfileUpdated
+      file: ./src/mappings.ts
+  - kind: ethereum
+    name: SocialPost
+    network: base-sepolia
+    source:
+      address: "0x0000000000000000000000000000000000000000"  # replace after deploy
+      abi: SocialPost
+      startBlock: 0  # replace with deployment block
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Post
+        - Like
+      abis:
+        - name: SocialPost
+          file: ../contracts/artifacts/contracts/SocialPost.sol/SocialPost.json
+      eventHandlers:
+        - event: PostCreated(indexed uint256,indexed address,string,uint256)
+          handler: handlePostCreated
+        - event: PostLiked(indexed uint256,indexed address,uint256)
+          handler: handlePostLiked
+        - event: PostUnliked(indexed uint256,indexed address,uint256)
+          handler: handlePostUnliked
+      file: ./src/mappings.ts
